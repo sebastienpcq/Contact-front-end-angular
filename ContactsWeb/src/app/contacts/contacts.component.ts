@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ContactsService} from '../../services/contacts.service';
+import {Router} from '@angular/router';
+import {Contact} from '../../model/model.contact';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class ContactsComponent implements OnInit {
   currentPage = 0;
   size = 5;
   pages: Array<number>;
-  constructor(public contactService: ContactsService) { }
+  constructor(public contactService: ContactsService, public router: Router) { }
 
   ngOnInit() {
     this.chercher();
@@ -37,6 +39,24 @@ export class ContactsComponent implements OnInit {
   goToPage(i: number) {
     this.currentPage = i;
     this.doSearch();
+  }
+
+  onEditContact(id: number) {
+    this.router.navigate(['editContact', id]);
+  }
+  onDeleteContact(c: Contact) {
+    const confirm = window.confirm('Etes vous sûre de vouloir supprimer ?');
+    if (confirm === true) {
+      this.contactService.deleteContacts(c.id)
+        .subscribe(data => {
+          this.pageContact.content.splice(
+            this.pageContact.content.indexOf(c), 1
+          );
+        }, err => {
+          console.log(err);
+        });
+    }
+
   }
 
 }
