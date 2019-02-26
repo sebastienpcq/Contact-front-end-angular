@@ -7,21 +7,25 @@ import {RouterModule, Routes} from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ContactsService} from '../services/contacts.service';
+import {FormsModule} from '@angular/forms';
+import { NewContactComponent } from './new-contact/new-contact.component';
 
 const appRoot: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'contacts', component: ContactsComponent},
+  {path: 'new-contact', component: NewContactComponent},
   {path: '', redirectTo: '/about', pathMatch: 'full'}
 ];
 @NgModule({
   declarations: [
     AppComponent,
     ContactsComponent,
-    AboutComponent
+    AboutComponent,
+    NewContactComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoot), HttpClientModule
+    RouterModule.forRoot(appRoot), HttpClientModule, FormsModule
   ],
   providers: [ContactsService],
   bootstrap: [AppComponent]

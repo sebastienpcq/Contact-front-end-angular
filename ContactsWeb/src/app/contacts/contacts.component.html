@@ -2,6 +2,11 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Liste des contacts</div>
     <div class="panel-body"></div>
+    <div class="form-group">
+      <label for="">Mot clé:</label>
+      <input type="text" [(ngModel)]="motCle">
+      <button class="btn btn-primary" (click)="chercher()">Chercher</button>
+    </div>
     <table class="table table-striped">
       <tr>
         <th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th>
@@ -13,5 +18,11 @@
         <td>{{c.email}}</td>
       </tr>
     </table>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li [ngClass]="{'active' :i === currentPage}"  *ngFor="let p of pages; let i = index">
+          <a class="clickable" (click)="goToPage(i)">{{i}} </a> </li>
+      </ul>
+    </div>
   </div>
 </div>
